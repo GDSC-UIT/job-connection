@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "paths": {
       "@elements/*": ["components/elements/*"],
       "@layouts/*": ["components/layouts/*"],
@@ -8,6 +8,6 @@
       "@styles/*": ["styles/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["**/*.js", "**/*.jsx"],
   "exclude": ["node_modules"]
 }
