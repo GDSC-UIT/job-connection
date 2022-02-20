@@ -5,7 +5,9 @@
       "@elements/*": ["components/elements/*"],
       "@layouts/*": ["components/layouts/*"],
       "@templates/*": ["components/templates/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@libs/*": ["libs/*"],
+      "@api/*": ["api/*"]
     }
   },
   "include": ["**/*.js", "**/*.jsx"],

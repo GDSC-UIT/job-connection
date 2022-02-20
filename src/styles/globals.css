@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.grid-container {
+  @apply flex -m-2 mb-0;
+}
+
+.grid-column-1 {
+  @apply w-1/12 p-2;
+}
+
+.grid-column-2 {
+  @apply w-2/12 p-2;
+}
+.grid-column-3 {
+  @apply w-3/12 p-2;
+}
+.grid-column-4 {
+  @apply w-4/12 p-2;
+}
+.grid-column-5 {
+  @apply w-5/12 p-2;
+}
+.grid-column-6 {
+  @apply w-6/12 p-2;
+}
+.grid-column-7 {
+  @apply w-7/12 p-2;
+}
+.grid-column-8 {
+  @apply w-8/12 p-2;
+}
+.grid-column-9 {
+  @apply w-9/12 p-2;
+}
+.grid-column-10 {
+  @apply w-10/12 p-2;
+}
+.grid-column-11 {
+  @apply w-11/12 p-2;
+}
+.grid-column-12 {
+  @apply w-full p-2;
+}
