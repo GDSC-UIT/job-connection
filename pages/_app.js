@@ -20,10 +20,10 @@ const queryClient = new QueryClient({
         toast.success(data.data.message);
       },
     },
-    queryCache: new QueryCache({
-      onError: (error) => toast.error(error.message || error),
-    }),
   },
+  queryCache: new QueryCache({
+    onError: (error) => toast.error(error.message || error),
+  }),
 });
 
 function MyApp({ Component, pageProps }) {
