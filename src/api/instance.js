@@ -34,7 +34,8 @@ instance.interceptors.response.use(
     } else if (error.request) {
       // request mãi mãi ko thấy response
       // `error.request` là XMLHttpRequest trong website còn nodejs là http.ClientRequest
-      console.log(`%c ${JSON.stringify(error)}  :`, 'color: red; font-weight: bold', error.response.data);
+      // console.log(error.request);
+      // console.log(`%c ${JSON.stringify(error)}  :`, 'color: red; font-weight: bold', error.response.data);
       return Promise.reject(error);
     } else {
       // có gì đó sai sai, hình như là hàm request sai

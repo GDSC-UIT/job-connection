@@ -10,7 +10,6 @@ import profileApi from '@api/profile';
 import ProfilePhoto from './ProfilePhoto';
 import { isBrowser } from '@libs/utils';
 import Button from '@elements/Button';
-import { toast } from 'react-toastify';
 import Degree from './Degree';
 
 const UserProfilePage = () => {
