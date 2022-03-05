@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import '@styles/globals.css';
+import '@styles/Login.css';
+import '@styles/Register.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { auth } from '@libs/firebase';
@@ -31,6 +33,7 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     auth.onIdTokenChanged((user) => {
+      user.getIdTokenResult(console.log);
       user?.getIdToken().then(setToken);
     });
   }, []);

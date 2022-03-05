@@ -21,7 +21,7 @@ const navigation = [
 const Navbar = () => {
   const [user, loading] = useAuthState(auth);
   const { data, error } = useQuery(['profile'], () => profileApi.get(), { enabled: !!user?.uid, retryDelay: 100, retry: 1 });
-
+  console.log(user);
   return (
     <Disclosure as="nav" className="bg-white">
       {({ open }) => (

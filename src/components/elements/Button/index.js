@@ -12,7 +12,7 @@ const Button = forwardRef(
             : 'text-white bg-blue-700 hover:bg-blue-800 disabled:bg-blue-400 focus:ring-4 focus:ring-blue-300 text-center',
           rounded ? 'rounded-full' : 'rounded-lg',
           small ? 'py-2 px-3' : 'px-5 py-2.5',
-          'text-sm font-medium text-center inline-flex items-center disabled:cursor-not-allowed',
+          'text-sm font-medium text-center inline-flex items-center justify-center disabled:cursor-not-allowed',
           className
         )}
         {...rest}
@@ -37,8 +37,7 @@ const Button = forwardRef(
             />
           </svg>
         )}
-
-        {children}
+        <span>{children}</span>
       </button>
     );
   }
