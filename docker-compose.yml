@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  fe:
+    container_name: jc-fe
+    build: .
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/pgdata
+    ports:
+      - 3000:3000
