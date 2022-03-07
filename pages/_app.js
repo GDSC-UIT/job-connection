@@ -33,7 +33,6 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     auth.onIdTokenChanged((user) => {
-      user.getIdTokenResult(console.log);
       user?.getIdToken().then(setToken);
     });
   }, []);
