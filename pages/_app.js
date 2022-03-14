@@ -15,6 +15,7 @@ const queryClient = new QueryClient({
     queries: {
       staleTime: 1000 * 5,
       retry: false,
+      refetchOnWindowFocus: false,
     },
     mutations: {
       onError: (error) => toast.error(error.message || error),

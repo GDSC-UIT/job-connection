@@ -12,17 +12,12 @@ import { isBrowser } from '@libs/utils';
 import Button from '@elements/Button';
 import Degree from './Degree';
 
-const UserProfilePage = () => {
+const UserProfilePage = ({ data }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { control, reset, register, handleSubmit, formState } = useForm();
   const [user, authLoading] = useAuthState(auth);
 
-  const { data, loading, error, enabled } = useQuery('profile', () => profileApi.get(), {
-    enabled: !!user?.uid,
-    retryDelay: 100,
-    retry: 1,
-  });
   const mutation = useMutation(profileApi.update, {
     onSettled: () => {
       queryClient.invalidateQueries('profile');
@@ -31,27 +26,27 @@ const UserProfilePage = () => {
 
   useEffect(() => {
     if (!data) return;
-    reset(data.data.profile);
-  }, [data?.data.profile]);
+    reset(data);
+  }, [data]);
 
   useEffect(() => {
     console.log(formState.loading);
   }, [formState.loading]);
 
-  if (authLoading || loading) return <>Loading ...</>;
+  if (authLoading) return <>Loading ...</>;
   if (!user) {
     if (isBrowser) router.replace('/');
     return null;
   }
   return (
-    <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 pt-6">
+    <div className="mx-auto max-w-7xl px-2 pt-6 sm:px-6 lg:px-8">
       <div className="grid-container !mb-4">
         <div className="px-2">
-          <ProfilePhoto control={control} user_id={data?.data.profile.id} />
+          <ProfilePhoto control={control} user_id={data.id} />
           <div className="mt-6">
             <input
               type="text"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               placeholder="Name"
               {...register('name')}
             />
@@ -59,15 +54,15 @@ const UserProfilePage = () => {
           <div className="mt-4">
             <textarea
               rows="4"
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               placeholder="Your Bio"
               {...register('bio')}
             ></textarea>
           </div>
           <div className="relative mt-4">
-            <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <svg
-                className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                className="h-5 w-5 text-gray-500 dark:text-gray-400"
                 fill="currentColor"
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"
@@ -77,15 +72,15 @@ const UserProfilePage = () => {
             </div>
             <input
               type="text"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               placeholder="name@flowbite.com"
               {...register('facebook_url')}
             />
           </div>
           <div className="relative mt-4">
-            <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <svg
-                className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                className="h-5 w-5 text-gray-500 dark:text-gray-400"
                 fill="currentColor"
                 viewBox="0 0 512 512"
                 xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +90,7 @@ const UserProfilePage = () => {
             </div>
             <input
               type="text"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               placeholder="name@flowbite.com"
               {...register('linkedin_url')}
             />
@@ -105,65 +100,65 @@ const UserProfilePage = () => {
           <div className="rounded-md border px-4 py-4">
             <div className="grid-container flex-wrap">
               <div className="grid-column-12">
-                <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                <label htmlFor="address" className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
                   Address
                 </label>
                 <input
                   type="text"
                   id="address"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   {...register('location')}
                 />
               </div>
               <div className="grid-column-5">
-                <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                <label htmlFor="phone" className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
                   Phone number
                 </label>
                 <input
                   type="number"
                   id="phone"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   {...register('phone')}
                 />
               </div>
               <div className="grid-column-7">
-                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
                   Email
                 </label>
                 <input
                   type="email"
                   id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   {...register('email')}
                 />
               </div>
             </div>
           </div>
-          <div className="rounded-md border px-4 py-4 mt-6">
+          <div className="mt-6 rounded-md border px-4 py-4">
             <div className="grid-container flex-wrap">
               <div className="grid-column-4">
-                <label htmlFor="gpa" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                <label htmlFor="gpa" className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
                   GPA
                 </label>
                 <input
                   type="number"
                   id="gpa"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   {...register('gpa', { valueAsNumber: true })}
                 />
               </div>
               <div className="grid-column-4">
-                <label htmlFor="number_of_years" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                <label htmlFor="number_of_years" className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
                   Number of years
                 </label>
                 <input
                   type="number"
                   id="number_of_years"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   {...register('number_of_years', { valueAsNumber: true })}
                 />
               </div>
-              <Degree control={control} user_id={data?.data.profile.id} />
+              <Degree control={control} user_id={data.id} />
             </div>
           </div>
           <div className="mt-6">

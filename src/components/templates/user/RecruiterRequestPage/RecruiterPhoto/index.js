@@ -4,14 +4,15 @@ import { useController } from 'react-hook-form';
 import { StorageReference, ref, getDownloadURL } from 'firebase/storage';
 import { useUploadFile } from 'react-firebase-hooks/storage';
 
-const ProfilePhoto = ({ control, user_id }) => {
+const RecruiterPhoto = ({ control }) => {
   const { field, fieldState, formState } = useController({ control, name: 'photo' });
   const [uploadFile, uploading, snapshot, error] = useUploadFile();
 
   const onChange = async (e) => {
     if (e.target.files.length == 0) return;
     try {
-      const photoRef = ref(storage, `photo/${user_id}`);
+      const id = Date.now();
+      const photoRef = ref(storage, `photo/${id}`);
       const result = await uploadFile(photoRef, e.target.files[0]);
       const photoUrl = await getDownloadURL(photoRef);
       field.onChange(photoUrl);
@@ -24,14 +25,14 @@ const ProfilePhoto = ({ control, user_id }) => {
 
   return (
     <div className="block rounded-full px-2">
-      <label className="block border border-2 border-gray-200 rounded-full shadow relative">
-        <img src={field.value} alt="" className="rounded-full h-52 w-52 object-cover" />
+      <label className="relative block rounded-full border border-2 border-gray-200 shadow">
+        <img src={field.value ?? '/avatar.png'} alt="" className="h-52 w-52 rounded-full object-cover" />
         <input type="file" onChange={onChange} hidden accept="image/*" />
         {uploading && (
-          <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-opacity-50 bg-gray-500 rounded-full">
+          <div className="absolute top-0 left-0 flex h-full w-full items-center justify-center rounded-full bg-gray-500 bg-opacity-50">
             <svg
               role="status"
-              className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-100"
+              className="h-8 w-8 animate-spin fill-gray-100 text-gray-200 dark:text-gray-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -52,4 +53,4 @@ const ProfilePhoto = ({ control, user_id }) => {
   );
 };
 
-export default ProfilePhoto;
+export default RecruiterPhoto;
