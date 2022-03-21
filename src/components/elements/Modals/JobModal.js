@@ -1,6 +1,5 @@
 import jobApi from '@api/job';
 import recruiterApi from '@api/recruiter';
-import skillApi from '@api/skill';
 import Button from '@elements/Button';
 import Input from '@elements/Input';
 import SkillMultiSelect from '@elements/SkillMultiSelect';
@@ -74,7 +73,7 @@ const JobModal = ({ isOpen, onClose, job, recruiter_id }) => {
           >
             <div className="my-8 inline-block w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
               <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
-                {'Add Job'}
+                {job ? 'Edit Job' : 'Add Job'}
               </Dialog.Title>
 
               <form onSubmit={handleSubmit(onSubmit)}>
