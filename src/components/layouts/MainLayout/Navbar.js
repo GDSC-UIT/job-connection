@@ -42,10 +42,7 @@ const Navbar = () => {
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <Link href="/" passHref>
-                    <Logo withText className="hidden h-8 w-auto cursor-pointer lg:block" />
-                  </Link>
-                  <Link href="/" passHref>
-                    <Logo className="block h-8 w-auto cursor-pointer lg:hidden" />
+                    <Logo className="block h-8 w-auto cursor-pointer " />
                   </Link>
                 </div>
               </div>
