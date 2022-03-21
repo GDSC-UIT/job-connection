@@ -12,7 +12,7 @@ const Degree = ({ control, user_id }) => {
   const onChange = async (e) => {
     if (e.target.files.length == 0) return;
     try {
-      const fileRef = ref(storage, `degree/${e.target.files[0].name}-${user_id}`);
+      const fileRef = ref(storage, `degree/${user_id}-${e.target.files[0].name}`);
       const result = await uploadFile(fileRef, e.target.files[0]);
       const fileUrl = await getDownloadURL(fileRef);
       field.onChange(fileUrl);
