@@ -18,7 +18,7 @@ const JobsPage = () => {
   }, [currentJobIndexSelected, data]);
 
   useEffect(() => {
-    if (data) setCurrentJobIndexSelected(data.data.items[0].id);
+    if (data) setCurrentJobIndexSelected(data.data.items[0]?.id);
   }, [data]);
 
   return (
