@@ -1,27 +1,30 @@
-import React, { Fragment, useEffect } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-import clsx from 'clsx';
-import Logo from '@elements/Logo';
-import Button from '@elements/Button';
-import Link from 'next/link';
-import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import { auth } from '@libs/firebase';
-import NextLink from '@elements/NextLink';
-import Image from 'next/image';
-import { useQuery } from 'react-query';
 import profileApi from '@api/profile';
+import Button from '@elements/Button';
+import Logo from '@elements/Logo';
+import NextLink from '@elements/NextLink';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { auth } from '@libs/firebase';
+import clsx from 'clsx';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { Fragment } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useQuery } from 'react-query';
 
 const navigation = [
-  { name: 'Find a Job', href: '#', current: true },
-  { name: 'Find Talends', href: '#', current: false },
+  { name: 'Find a Job', href: '/jobs', current: true },
+  // { name: 'Find Talends', href: '#', current: false },
   { name: 'Blog', href: '#', current: false },
 ];
 
 const Navbar = () => {
+  const router = useRouter();
+  console.log(router);
   const [user, loading] = useAuthState(auth);
   const { data, error } = useQuery(['profile'], () => profileApi.get(), { enabled: !!user?.uid, retryDelay: 100, retry: 1 });
   console.log(user);
+
   return (
     <Disclosure as="nav" className="bg-white">
       {({ open }) => (
@@ -48,19 +51,30 @@ const Navbar = () => {
               </div>
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
-                  {navigation.map((item) => (
+                  <Link href="/jobs">
                     <a
-                      key={item.name}
-                      href={item.href}
                       className={clsx(
-                        item.current ? 'text-emerald-600' : 'text-gray-500 hover:text-emerald-500',
+                        router.asPath == '/jobs' ? 'text-emerald-600' : 'text-gray-500 hover:text-emerald-500',
                         'rounded-md px-3 py-2 text-sm font-medium'
                       )}
-                      aria-current={item.current ? 'page' : undefined}
+                      aria-current={router.asPath == '/jobs' ? 'page' : undefined}
                     >
-                      {item.name}
+                      Find a job
                     </a>
-                  ))}
+                  </Link>
+                  {/* {navigation.map((item) => (
+                    <Link key={item.name} href={item.href}>
+                      <a
+                        className={clsx(
+                          item.current ? 'text-emerald-600' : 'text-gray-500 hover:text-emerald-500',
+                          'rounded-md px-3 py-2 text-sm font-medium'
+                        )}
+                        aria-current={item.current ? 'page' : undefined}
+                      >
+                        {item.name}
+                      </a>
+                    </Link>
+                  ))} */}
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
