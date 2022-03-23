@@ -6,6 +6,7 @@ import skillApi from '@api/skill';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@libs/firebase';
+import profileApi from '@api/profile';
 
 const JobPreview = ({ job }) => {
   const router = useRouter();
