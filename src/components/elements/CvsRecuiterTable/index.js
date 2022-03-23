@@ -1,16 +1,21 @@
+import applyRequestApi from '@api/apply-request';
 import jobApi from '@api/job';
 import LoadingIcon from '@elements/LoadingIcon';
 import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useQuery } from 'react-query';
-import JobRow from './JobRow';
+import CVRow from './CVRow';
 
-const JobsRecruiterTable = ({ recruiter_id }) => {
+const CVsRecruiterTable = ({ recruiter_id }) => {
   const [page, setPage] = useState(0);
   const [sort, setSort] = useState('-id');
-  const { data, isLoading } = useQuery(['jobs', { page, sort, recruiter_id }], () => jobApi.get({ page, sort, company_id: recruiter_id }), {
-    enabled: !!recruiter_id,
-  });
+  const { data, isLoading } = useQuery(
+    ['applyrequest', { page, sort, recruiter_id }],
+    () => applyRequestApi.get({ page, sort, company_id: recruiter_id }),
+    {
+      enabled: !!recruiter_id,
+    }
+  );
 
   return (
     <div className="mt-3 flex flex-col">
@@ -22,7 +27,10 @@ const JobsRecruiterTable = ({ recruiter_id }) => {
                 ID
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                Title
+                Job
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                Candidate
               </th>
               {/* <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                 Email
@@ -30,6 +38,9 @@ const JobsRecruiterTable = ({ recruiter_id }) => {
               {/* <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                 Status
               </th> */}
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                CV
+              </th>
               <th scope="col" className="relative px-6 py-3">
                 <span className="sr-only">Edit</span>
               </th>
@@ -45,7 +56,7 @@ const JobsRecruiterTable = ({ recruiter_id }) => {
                 </td>
               </tr>
             ) : (
-              data?.data.items?.map((job) => <JobRow job={job} key={job.id} />)
+              data?.data.items?.map((cv) => <CVRow cv={cv} key={cv.id} />)
             )}
           </tbody>
         </table>
@@ -65,4 +76,4 @@ const JobsRecruiterTable = ({ recruiter_id }) => {
   );
 };
 
-export default JobsRecruiterTable;
+export default CVsRecruiterTable;

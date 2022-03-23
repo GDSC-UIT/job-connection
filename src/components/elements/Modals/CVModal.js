@@ -10,37 +10,37 @@ import { useForm } from 'react-hook-form';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
-const JobModal = ({ isOpen, onClose, job, recruiter_id }) => {
+const CVModal = ({ isOpen, onClose, cv, recruiter_id }) => {
   const queryClient = useQueryClient();
   const { register, formState, handleSubmit, reset, control } = useForm();
 
-  const { data } = useQuery(['recruiters', recruiter_id], () => recruiterApi.getById(recruiter_id), { enabled: !!recruiter_id });
-  const addMutation = useMutation(jobApi.create, {
-    onSuccess: (data) => {
-      toast.success(data.data.message || 'success');
-      onClose();
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries('jobs');
-    },
-  });
-  const updateMutation = useMutation((data) => jobApi.update(job?.id, data), {
-    onSuccess: (data) => {
-      toast.success(data.data.message);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries('jobs');
-    },
-  });
+  // const { data } = useQuery(['applyrequest', recruiter_id], () => recruiterApi.getById(recruiter_id), { enabled: !!recruiter_id });
+  // const addMutation = useMutation(jobApi.create, {
+  //   onSuccess: (data) => {
+  //     toast.success(data.data.message || 'success');
+  //     onClose();
+  //   },
+  //   onSettled: () => {
+  //     queryClient.invalidateQueries('jobs');
+  //   },
+  // });
+  // const updateMutation = useMutation((data) => jobApi.update(cv?.id, data), {
+  //   onSuccess: (data) => {
+  //     toast.success(data.data.message);
+  //   },
+  //   onSettled: () => {
+  //     queryClient.invalidateQueries('jobs');
+  //   },
+  // });
 
   useEffect(() => {
-    if (isOpen) reset(job);
+    if (isOpen) reset(cv);
   }, [isOpen]);
 
-  const onSubmit = (data) => {
-    if (job) return updateMutation.mutateAsync(data);
-    return addMutation.mutateAsync({ ...data, company_id: recruiter_id });
-  };
+  // const onSubmit = (data) => {
+  //   if (cv) return updateMutation.mutateAsync(data);
+  //   return addMutation.mutateAsync({ ...data, company_id: recruiter_id });
+  // };
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -73,32 +73,26 @@ const JobModal = ({ isOpen, onClose, job, recruiter_id }) => {
           >
             <div className="my-8 inline-block w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
               <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
-                {job ? 'Edit Job' : 'Add Job'}
+                {'CV'}
               </Dialog.Title>
 
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form>
                 <div className="mt-2">
-                  <Input label="Recruiter" readOnly value={data?.data.data.name || ''} />
+                  <Input label="Job" readOnly value={cv.job.title} />
                 </div>
                 <div className="mt-2">
-                  <Input label="Title" {...register('title', { required: true, minLength: 2 })} />
+                  <Input label="Candidate" readOnly value={cv.user.name} />
                 </div>
                 <div className="mt-2">
-                  <Input label="Address" {...register('address', { required: true, minLength: 2 })} />
-                </div>
-                <div className="mt-2">
-                  <SkillMultiSelect control={control} name="skill_ids" label="Skills" />
-                </div>
-                <div className="mt-2">
-                  <Textarea label="Description" {...register('description')} rows={5} />
+                  <Textarea label="Description" rows={5} readOnly value={cv.note} />
                 </div>
                 <div className="mt-4 flex justify-end ">
                   <Button outline onClick={onClose}>
                     Cancel
                   </Button>
-                  <Button className="ml-2" type="submit" loading={formState.isSubmitting}>
+                  {/* <Button className="ml-2" type="submit" loading={formState.isSubmitting}>
                     Submit
-                  </Button>
+                  </Button> */}
                 </div>
               </form>
             </div>
@@ -109,4 +103,4 @@ const JobModal = ({ isOpen, onClose, job, recruiter_id }) => {
   );
 };
 
-export default JobModal;
+export default CVModal;

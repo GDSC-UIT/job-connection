@@ -51,17 +51,20 @@ const Navbar = () => {
               </div>
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
-                  <Link href="/jobs">
-                    <a
-                      className={clsx(
-                        router.asPath == '/jobs' ? 'text-emerald-600' : 'text-gray-500 hover:text-emerald-500',
-                        'rounded-md px-3 py-2 text-sm font-medium'
-                      )}
-                      aria-current={router.asPath == '/jobs' ? 'page' : undefined}
-                    >
-                      Find a job
-                    </a>
-                  </Link>
+                  {data?.data.type == 'user' && (
+                    <Link href="/jobs">
+                      <a
+                        className={clsx(
+                          router.asPath == '/jobs' ? 'text-emerald-600' : 'text-gray-500 hover:text-emerald-500',
+                          'rounded-md px-3 py-2 text-sm font-medium'
+                        )}
+                        aria-current={router.asPath == '/jobs' ? 'page' : undefined}
+                      >
+                        Find a job
+                      </a>
+                    </Link>
+                  )}
+
                   {/* {navigation.map((item) => (
                     <Link key={item.name} href={item.href}>
                       <a
@@ -82,7 +85,7 @@ const Navbar = () => {
                 {/* test */}
 
                 {user ? (
-                  <Menu as="div" className="relative">
+                  <Menu as="div" className="relative z-10">
                     <div>
                       <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="sr-only">Open user menu</span>
@@ -109,17 +112,33 @@ const Navbar = () => {
                             </NextLink>
                           )}
                         </Menu.Item>
+
                         {data?.data.type == 'company' && (
-                          <Menu.Item>
-                            {({ active }) => (
-                              <NextLink
-                                href="/manage-jobs"
-                                className={clsx(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                              >
-                                Jobs
-                              </NextLink>
-                            )}
-                          </Menu.Item>
+                          <>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <NextLink
+                                  href="/manage-jobs"
+                                  className={clsx(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                >
+                                  Jobs
+                                </NextLink>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => {
+                                console.log(active);
+                                return (
+                                  <NextLink
+                                    href="/manage-cv"
+                                    className={clsx(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                  >
+                                    CVs
+                                  </NextLink>
+                                );
+                              }}
+                            </Menu.Item>
+                          </>
                         )}
                         <Menu.Item>
                           {({ active }) => (

@@ -20,7 +20,14 @@ const JobPreview = ({ job }) => {
     <div className="px-3">
       <h1 className="text-3xl font-semibold">{job.title}</h1>
       <p className="text-gray-400 font-semibold">{job.company.name}</p>
-      <Button className="w-full mt-3">Apply now</Button>
+      <Button
+        className="w-full mt-3"
+        onClick={() => {
+          router.push(`/jobs/${job.id}/job-application`);
+        }}
+      >
+        Apply now
+      </Button>
       <div className="border my-5" />
       <div>
         {skills.map((skill) => (
