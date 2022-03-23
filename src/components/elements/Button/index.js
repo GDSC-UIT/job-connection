@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React, { forwardRef } from 'react';
 
 const Button = forwardRef(
-  ({ children, className, type = 'button', loading = false, outline = false, rounded = false, small = false, ...rest }, ref) => {
+  ({ children, className, type = 'button', loading = false, outline = false, rounded = false, small = false, disabled, ...rest }, ref) => {
     return (
       <button
         type={type}
@@ -17,7 +17,7 @@ const Button = forwardRef(
         )}
         {...rest}
         ref={ref}
-        disabled={loading}
+        disabled={loading || disabled}
       >
         {loading && (
           <svg
