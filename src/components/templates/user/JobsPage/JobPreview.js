@@ -4,11 +4,16 @@ import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import skillApi from '@api/skill';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@libs/firebase';
 
 const JobPreview = ({ job }) => {
   const router = useRouter();
-  const { data, isLoading } = useQuery('skills', () => skillApi.get({ size: 1000 }));
+  const [user] = useAuthState(auth);
+  const { data: profile, error } = useQuery(['profile'], () => profileApi.get(), { enabled: !!user?.uid, retryDelay: 100, retry: 1 });
 
+  const { data, isLoading } = useQuery('skills', () => skillApi.get({ size: 1000 }));
+  console.log(auth);
   const skills = useMemo(() => {
     if (!data) return [];
     if (!job) return [];
@@ -23,8 +28,10 @@ const JobPreview = ({ job }) => {
       <Button
         className="w-full mt-3"
         onClick={() => {
-          router.push(`/jobs/${job.id}/job-application`);
+          if (!profile) router.push('/sign-in');
+          else router.push(`/jobs/${job.id}/job-application`);
         }}
+        disabled={profile?.data.type == 'company'}
       >
         Apply now
       </Button>

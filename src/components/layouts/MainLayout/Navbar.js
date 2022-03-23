@@ -51,19 +51,17 @@ const Navbar = () => {
               </div>
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
-                  {data?.data.type == 'user' && (
-                    <Link href="/jobs">
-                      <a
-                        className={clsx(
-                          router.asPath == '/jobs' ? 'text-emerald-600' : 'text-gray-500 hover:text-emerald-500',
-                          'rounded-md px-3 py-2 text-sm font-medium'
-                        )}
-                        aria-current={router.asPath == '/jobs' ? 'page' : undefined}
-                      >
-                        Find a job
-                      </a>
-                    </Link>
-                  )}
+                  <Link href="/jobs">
+                    <a
+                      className={clsx(
+                        router.asPath == '/jobs' ? 'text-emerald-600' : 'text-gray-500 hover:text-emerald-500',
+                        'rounded-md px-3 py-2 text-sm font-medium'
+                      )}
+                      aria-current={router.asPath == '/jobs' ? 'page' : undefined}
+                    >
+                      Find a job
+                    </a>
+                  </Link>
 
                   {/* {navigation.map((item) => (
                     <Link key={item.name} href={item.href}>
