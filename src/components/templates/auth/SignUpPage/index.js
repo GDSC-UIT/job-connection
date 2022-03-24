@@ -28,7 +28,6 @@ const SignUpPage = () => {
 
   const setPhoneHandler = (phone) => {
     setPhone(phone);
-    console.log(phone);
   };
   const setFlagHandler = (flag) => {
     setFlag(flag);

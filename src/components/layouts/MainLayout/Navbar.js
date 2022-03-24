@@ -20,10 +20,8 @@ const navigation = [
 
 const Navbar = () => {
   const router = useRouter();
-  console.log(router);
   const [user, loading] = useAuthState(auth);
   const { data, error } = useQuery(['profile'], () => profileApi.get(), { enabled: !!user?.uid, retryDelay: 100, retry: 1 });
-  console.log(user);
 
   return (
     <Disclosure as="nav" className="bg-white">
@@ -124,17 +122,14 @@ const Navbar = () => {
                               )}
                             </Menu.Item>
                             <Menu.Item>
-                              {({ active }) => {
-                                console.log(active);
-                                return (
-                                  <NextLink
-                                    href="/manage-cv"
-                                    className={clsx(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                  >
-                                    CVs
-                                  </NextLink>
-                                );
-                              }}
+                              {({ active }) => (
+                                <NextLink
+                                  href="/manage-cv"
+                                  className={clsx(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                >
+                                  CVs
+                                </NextLink>
+                              )}
                             </Menu.Item>
                           </>
                         )}

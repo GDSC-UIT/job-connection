@@ -10,13 +10,21 @@ import profileApi from '@api/profile';
 import ProfilePhoto from './ProfilePhoto';
 import { isBrowser } from '@libs/utils';
 import Button from '@elements/Button';
+import SkillMultiSelect from '@elements/SkillMultiSelect';
 import Degree from './Degree';
+import { PlusIcon } from '@heroicons/react/outline';
+import useDisclosure from '@hooks/useDisclosure';
+import experienceApi from '@api/experiences';
+import UserExperienceModal from '@elements/Modals/UserExperienceModal';
+import UserExperienceItem from './UserExperienceItem';
 
 const UserProfilePage = ({ data }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { control, reset, register, handleSubmit, formState } = useForm();
   const [user, authLoading] = useAuthState(auth);
+  const addController = useDisclosure();
+  const { data: experiences } = useQuery(['experiences'], () => experienceApi.get({ user_id: user?.uid }), { enabled: !!user?.uid });
 
   const mutation = useMutation(profileApi.update, {
     onSettled: () => {
@@ -160,6 +168,31 @@ const UserProfilePage = ({ data }) => {
               </div>
               <Degree control={control} user_id={data.id} />
             </div>
+          </div>
+          <div className="mt-6 rounded-md border px-4 py-4">
+            <div className="grid-container flex-wrap">
+              <div className="grid-column-6">
+                <SkillMultiSelect control={control} name="hard_skill_ids" label="Hard Skills" />
+              </div>
+              <div className="grid-column-6">
+                <SkillMultiSelect control={control} name="soft_skill_ids" label="Soft Skills" />
+              </div>
+            </div>
+          </div>
+          <div className="mt-6 rounded-md border p-4">
+            <label htmlFor="experience" className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
+              Experiences
+            </label>
+            {experiences?.data.data.map((experience) => (
+              <UserExperienceItem experience={experience} key={experience.ID} />
+            ))}
+            <div
+              className="border flex justify-center h-8 rounded-lg border-dashed cursor-pointer hover:border-2 items-center"
+              onClick={addController.onOpen}
+            >
+              <PlusIcon className="w-6 h-6 text-gray-500" />
+            </div>
+            <UserExperienceModal isOpen={addController.isOpen} onClose={addController.onClose} />
           </div>
           <div className="mt-6">
             <Button loading={formState.isSubmitting} onClick={handleSubmit(mutation.mutateAsync)}>

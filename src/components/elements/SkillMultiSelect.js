@@ -18,7 +18,7 @@ const SkillMultiSelect = ({ control, name, rules, label }) => {
         options={data?.data.items || []}
         getOptionLabel={(x) => x.name}
         getOptionValue={(x) => x.id}
-        value={field.value.map((id) => data?.data.items.find((x) => x.id == id))}
+        value={field.value?.map((id) => data?.data.items.find((x) => x.id == id)) || []}
         onChange={(data) => {
           field.onChange(data.map((x) => x.id));
         }}
