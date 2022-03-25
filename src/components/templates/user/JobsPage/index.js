@@ -58,3 +58,4 @@ const JobsPage = () => {
 export default JobsPage;
 
 JobsPage.layout = MainLayout;
+JobsPage.title = 'Jobs';

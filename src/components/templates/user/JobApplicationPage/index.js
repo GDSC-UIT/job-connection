@@ -62,3 +62,4 @@ const JobApplicationPage = () => {
 export default JobApplicationPage;
 
 JobApplicationPage.layout = MainLayout;
+JobApplicationPage.title = 'Application';

@@ -27,3 +27,4 @@ const RecruiterManageJobsPage = () => {
 export default RecruiterManageJobsPage;
 
 RecruiterManageJobsPage.layout = MainLayout;
+RecruiterManageJobsPage.title = 'Jobs';

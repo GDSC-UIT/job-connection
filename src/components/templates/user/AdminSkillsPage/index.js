@@ -23,3 +23,4 @@ const AdminSkillsPage = () => {
 export default AdminSkillsPage;
 
 AdminSkillsPage.layout = AdminLayout;
+AdminSkillsPage.title = 'Skills';

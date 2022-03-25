@@ -98,3 +98,4 @@ const RecruiterRequestPage = () => {
 export default RecruiterRequestPage;
 
 RecruiterRequestPage.layout = MainLayout;
+RecruiterRequestPage.title = 'New';

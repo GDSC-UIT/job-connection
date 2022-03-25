@@ -33,3 +33,4 @@ const ProfilePage = () => {
 export default ProfilePage;
 
 ProfilePage.layout = MainLayout;
+ProfilePage.title = 'Your Profile';

@@ -20,3 +20,4 @@ const RecruiterManageCVPage = () => {
 export default RecruiterManageCVPage;
 
 RecruiterManageCVPage.layout = MainLayout;
+RecruiterManageCVPage.title = 'CVs';

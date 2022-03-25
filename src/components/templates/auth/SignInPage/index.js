@@ -80,3 +80,4 @@ const SignInPage = () => {
 };
 
 export default SignInPage;
+SignInPage.title = 'Sign in';

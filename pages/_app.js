@@ -9,6 +9,7 @@ import { setToken } from '@api/instance';
 import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
 import { toast, ToastContainer } from 'react-toastify';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import Head from 'next/head';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,6 +42,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Layout>
+        <Head>
+          <title>{Component.title ? Component.title + ' | Job Connection' : 'Job Connection'}</title>
+        </Head>
         <Component {...pageProps} />
       </Layout>
 

@@ -7,3 +7,4 @@ const AdminJobsPage = () => {
 
 export default AdminJobsPage;
 AdminJobsPage.layout = AdminLayout;
+AdminJobsPage.title = 'Jobs';

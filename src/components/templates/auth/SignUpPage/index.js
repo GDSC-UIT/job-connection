@@ -69,3 +69,4 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
+SignUpPage.title = 'Sign up';

@@ -12,3 +12,4 @@ const AdminRecruitersPage = () => {
 
 export default AdminRecruitersPage;
 AdminRecruitersPage.layout = AdminLayout;
+AdminRecruitersPage.title = 'Recruiters';
