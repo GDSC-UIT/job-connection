@@ -44,6 +44,7 @@ function MyApp({ Component, pageProps }) {
       <Layout>
         <Head>
           <title>{Component.title ? Component.title + ' | Job Connection' : 'Job Connection'}</title>
+          <link rel="icon" href="/logo.png" />
         </Head>
         <Component {...pageProps} />
       </Layout>
