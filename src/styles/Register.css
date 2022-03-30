@@ -17,7 +17,6 @@
   padding: 20px 35px;
 }
 .register-title {
-  font-family: Roboto;
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
@@ -37,7 +36,6 @@
   border: none;
   outline: none;
   margin-top: 15px;
-  font-family: Roboto;
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
@@ -67,7 +65,6 @@
   justify-content: center;
 }
 .register-or-text {
-  font-family: Roboto;
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
@@ -132,7 +129,6 @@
   padding: 15px 30px;
 }
 .register-setting-title {
-  font-family: Roboto;
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
@@ -169,7 +165,6 @@
 .register-setting-row-left label,
 .register-setting-row-right label {
   align-self: flex-start;
-  font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -183,7 +178,6 @@
   border-radius: 5px;
   padding: 10px 5px;
   width: 80%;
-  font-family: Roboto;
   font-style: normal;
   font-weight: 300;
   font-size: 14px;
@@ -215,7 +209,6 @@
   margin-right: 10px;
 }
 .register-setting-row label {
-  font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -351,7 +344,6 @@
 }
 .flag p {
   padding-left: 5px;
-  font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;

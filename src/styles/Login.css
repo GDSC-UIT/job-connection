@@ -1,6 +1,5 @@
 .form-link {
   text-decoration: none;
-  font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -52,7 +51,6 @@
 }
 .form-row label {
   align-self: flex-start;
-  font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -63,7 +61,6 @@
 .form-title {
   align-self: flex-start;
   color: #2196f3;
-  font-family: Roboto;
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
@@ -128,7 +125,6 @@
   border: none;
   outline: none;
   margin-top: 15px;
-  font-family: Roboto;
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
@@ -150,7 +146,6 @@
 }
 .form-signup {
   margin-top: 15px;
-  font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
